@@ -1,24 +1,27 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { View } from 'react-native';
+import ConnexionInscription from '../components/connexion-inscription';
+
+import Style from '../styles/stylesheet';
 
 export default class ConnexionInscriptionView extends React.Component {
 
-    render() {
+  static navigationOptions = { title: 'Welcome' };
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
-        onPress = () => {
-            console.log('OK');
-        }
+  logIn = () => console.log('LOGIN OK');
 
-        return (
-            <Button
-                onPress={this.onPress} 
-                title="Connexion"
-                color="#841584"
-                alignItems="center"
-                justifyContent="center"
-                borderRadius="100"
-                accessibilityLabel="Connexion au compte"
-            /> 
-        )
-    }
+  signIn = () => console.log('SIGNIN OK');
+
+  render() {
+    return (
+      <View style={Style.container}>
+        <ConnexionInscription navigation={this.props.navigation} />
+      </View>
+    );
+  }
 }
