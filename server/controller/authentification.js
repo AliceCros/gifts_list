@@ -15,12 +15,13 @@ function tokenForUser(user) {
 exports.inscription = function(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
+  
   if (!email || !password) {
     return res.status(422).json({ error: 'You must provide an email and password' });
   }
   // Check if user already exists
   User.findOne({ email: email }, function(err, existingUser) {
-
+  
     if (err) { 
       console.log('Error');
       return next(err);
@@ -38,9 +39,36 @@ exports.inscription = function(req, res, next) {
         
     user.save(function(err) {
       if (err) { return next(err) }
-        res.send({ user_id: user._id, token: tokenForUser(user) });
+      res.send({ user_id: user._id, token: tokenForUser(user) });
       });   
     })
     console.log("OK");
-
 }
+
+exports.signin = function(req, res, next) {
+  let email = req.params.email;
+  let password = req.params.password;
+  
+  if (!email || !password) {
+    return res.status(422).json({ error: 'You must provide an email and password' });
+  }
+
+  User.findOne({ email: email }, function(err, existingUser) {
+
+    if (err) { 
+        console.log('Error');
+        return next(err);
+      }
+
+    if (!existingUser) { 
+        console.log("Sorry, but it seems that we don't know this email address");
+        return res.status(422).json({ error: 'Wrong email address' });
+    }
+
+    console.log('Connected to your account with email address:', email);
+    return res.status(200).json({ success: 'Connected to user account' });
+    
+
+  });
+
+};

@@ -9,13 +9,13 @@ export default class ConnexionInscription extends React.Component {
     logIn = () => {
         return console.log('LOGIN OK');
     }
-
+     
     signIn = () => {
         return console.log('SIGNIN OK');
     }
 
     render () {
-        const navigation = this.props.navigation
+        const navigation = this.props.navigation;
 
         return (
             <View>

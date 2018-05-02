@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, Text, Button, View, Alert } from 'react-native';
 import EmailValidator from 'email-validator';
+import axios from 'axios';
 
 import Style from '../styles/stylesheet';
 
@@ -20,6 +21,11 @@ export default class InscriptionView extends React.Component {
       password: '',
       passwordconfirmation: '',
     };
+  }
+
+  getConnected = () => {
+    this.handlePress();
+    this.fetchData();
   }
 
     /**
@@ -97,8 +103,21 @@ export default class InscriptionView extends React.Component {
           return console.log('This email address is not valid');
         }
       } else {
+
         return console.log('Valid email address');
       }
+    }
+
+    fetchData = () => {
+      axios.post('api/inscription')
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        console.log('POST OK');
+      })
+      .catch(error => {
+          console.log(error.res)
+      });
     }
 
     render() {
@@ -131,7 +150,7 @@ export default class InscriptionView extends React.Component {
                 secureTextEntry
               />
             <Button
-                onPress={() => this.handlePress()}
+                onPress={() => this.getConnected()}
                 title="Let's go!"
                 color="#841584"
                 accessibilityLabel="Valider la connexion"

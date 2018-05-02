@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import ConnexionInscriptionView from './views/connexionInscriptionView';
 import ConnexionView from './views/connexionView';
 import InscriptionView from './views/inscriptionView';
+import MyListView from './views/myListView';
 
 const GetConnected = new StackNavigator({
   Home: { screen: ConnexionInscriptionView, },
@@ -19,7 +20,7 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       user: null,
-      getConnect: null
+      getConnect: null,
     }
   }
 

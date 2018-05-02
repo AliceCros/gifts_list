@@ -10,14 +10,20 @@ const validateEmail = (email) => {
 const userSchema = new Schema(
   {
     email: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        required: 'Email address is required',
-        validate: [validateEmail, 'Please enter a valide email address']
+      type: String,
+      unique: true,
+      lowercase: true,
+      required: 'Email address is required',
+      validate: [validateEmail, 'Please enter a valide email address'],
     },
     password: {
-        type: String,
+      type: String,
+    },
+    listItem: {
+      type: [String],
+    },
+    friendsList: {
+      type: [String],
     },
   }
 );
