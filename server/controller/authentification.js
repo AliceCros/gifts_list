@@ -31,12 +31,12 @@ exports.inscription = function(req, res, next) {
       console.log('Email already used');
       return res.status(422).json({ error: 'Email already used' });
     }
-        
+
     let user = new User({
       email: email,
       password: password,
     });
-        
+
     user.save(function(err) {
       if (err) { return next(err) }
       res.send({ user_id: user._id, token: tokenForUser(user) });

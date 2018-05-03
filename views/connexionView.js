@@ -61,7 +61,7 @@ export default class ConnexionView extends React.Component {
     fetchData = () => {
       console.log('GET INTO FETCH DATA');
       console.log(this.state.email);
-      axios.get(`https://localhost:19000/api/signin/${this.state.email}/${this.state.password}`)
+      axios.get(`http://localhost:19000/api/signin/${this.state.email}/${this.state.password}`)
       .then(function(res){
           this.setState({full_data:res.data});
           console.log("...............");
