@@ -1,5 +1,3 @@
-// Tuto Youtube : https://www.youtube.com/watch?v=UAv4QbZGf40&index=3&list=PL2W-kq21u8QDB5vRXMcFwbSUpM3QhNT2v
-
 const User = require('../models/user');
 const jwt = require('jwt-simple');
 const config = require('../../config');
@@ -67,7 +65,7 @@ exports.signin = function(req, res, next) {
     }
 
     console.log('Connected to your account with email address:', email);
-    res.status(200).json({ success: 'Connected to user account' });
+    res.status(200).json({ email: email, success: 'Connected to user account' });
     
     return res;
 

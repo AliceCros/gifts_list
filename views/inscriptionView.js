@@ -114,7 +114,7 @@ export default class InscriptionView extends React.Component {
 
     fetchData = () => {
       console.log('GET INTO FETCH DATA');
-       axios.post('https://api/inscription')
+       axios.post('http://localhost:4000/api/inscription')
       //console.log('INTO AXIOS REQUEST')
       .then(res => {
         //console.log(res);

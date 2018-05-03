@@ -1,13 +1,16 @@
 import React from 'react';
-import { Text, TextInput, Button, View, Alert } from 'react-native';
-import axios from 'axios';
+import { Text, TextInput, Button, View, Alert, ActivityIndicator } from 'react-native';
+import EmailValidator from 'email-validator';
 
+import ListView from './myListView';
 import Style from '../styles/stylesheet';
 
 export default class ConnexionView extends React.Component {
+
   static navigationOptions = {
-    title: 'Connexion',
+    title: 'Sign in',
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,27 +22,18 @@ export default class ConnexionView extends React.Component {
     };
   }
 
-  componentWillMount = () => {
-    console.log('I am mounting');
-    fetch(`http://localhost:4000/api/signin/alice@orange.com/12345678`)
-      .then((res) => console.log(res.json()))
-      .then((resJson) => {
-        console.log('SUCCESS');
-      })
-      .catch(error => {
-          console.log(error.res);
-      })
-    }
-
-
   getConnected = () => {
-    if(this.handlePress()) {
-      this.fetchData();
-      console.log('Hello');
-    }
-  }
 
-    handlePress = () => {
+    // We check that the information are valid.
+    // If the checkInformation function returns true, then we fetch data
+    if(this.checkInformation()) {
+      this.fetchData();
+    }
+    
+  }
+  
+
+    checkInformation = () => {
       // Check that the email address field has been filled in
       if (this.state.email === '') {
         Alert.alert(
@@ -52,6 +46,23 @@ export default class ConnexionView extends React.Component {
           { cancelable: false },
         );
         return console.log('Email address field is empty');
+      }
+
+      else if (this.state.email !== '') {
+        if (!EmailValidator.validate(this.state.email)) {
+          Alert.alert(
+            'Invalid email address',
+            'Please enter a valid email address',
+            [
+              { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+          );
+          return console.log('This email address is not valid');
+        }
+        console.log('Valid email address');
+        return true;
       }
       // Check that the password field has been filled in
       else if (this.state.password === '') {
@@ -66,7 +77,7 @@ export default class ConnexionView extends React.Component {
         );
         return console.log('Password field is empty');
       }
-      console.log('OK');
+      // If none of the conditions above is true, then we return true to get to FetchData
       return true;
 
     }
@@ -74,20 +85,40 @@ export default class ConnexionView extends React.Component {
     fetchData = () => {
       console.log('GET INTO FETCH DATA');
       console.log(this.state.email);
-      axios.get(`http://localhost:19000/api/signin/${this.state.email}/${this.state.password}`)
-      .then(function(res){
-          this.setState({full_data:res.data});
-          console.log("...............");
-          console.log('RECUPERATION FULL DATA OK', res);
-          console.log("...............");
-      }.bind(this))
-      .catch(error => {
-          console.log(error.res)
-      });
+      // We fetch email address from the DB
+      fetch(`http://192.168.56.1:4000/api/signin/${this.state.email}/${this.state.password}`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson.email);
+
+        // Double check that the email is in the DB
+        if (responseJson.email === this.state.email) {
+          Alert.alert(
+            'Hello',
+            responseJson.email,
+            [
+              { text: 'Continue', onPress: () => this.props.navigation.navigate('List') },
+            ],
+            { cancelable: false },
+          );
+        } else {
+          Alert.alert(
+            'Unknown email address',
+            'Please refer to the email address you use to create your account',
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+          );
+          return console.log('Unknown email address');
+        }
+      })
+      .done();
+      
     }
 
     render() {
-
+      
       return (
         <View style={Style.container}>
           <Text style={Style.h5}>Enter your email address</Text>
@@ -97,7 +128,7 @@ export default class ConnexionView extends React.Component {
               value={this.state.email}
               placeholder={this.state.email_placeholder}
               keyboardType="email-address"
-              />
+          />
           <Text style={Style.h5}>Enter your password</Text>
           <TextInput
               style={Style.input}
@@ -105,13 +136,13 @@ export default class ConnexionView extends React.Component {
               value={this.state.password}
               placeholder={this.state.pwd_placeholder}
               secureTextEntry
-              />
+          />
           <Button
-              onPress={() => this.getConnected()}
+              onPress={this.getConnected}
               title="Let's go!"
               color="#841584"
               accessibilityLabel="Valider la connexion"
-                />
+          />
         </View>
       );
     }

@@ -1,22 +1,28 @@
 import React from 'react';
-import {View, Text, Button, TextInput} from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
+
 import Style from '../styles/stylesheet';
 import ListItem from '../components/listItem'
 
 
 export default class MyListView extends React.Component{
+
+    static navigationOptions = {
+        title: 'My List',
+    };
+
     constructor(props){
         super(props)
         this.state = {
             listElement : '',
-            placeholder : 'Ajouter une idée cadeau',
-            arrayList : ['cadeau 1','cadeau 2','cadeau 3','cadeau 4' ]
+            placeholder : 'Add a gift',
+            arrayList : ['bike','diamonds','candies','Ferrari']
         }
     }
     render(){
         return(
             <View style={Style.container}>
-                <Text>Ma Liste</Text>
+                <Text style={Style.h1}>Ma Liste</Text>
                 <TextInput
                  style={Style.input}
                  onChangeText={listElement => this.setState({ listElement })}

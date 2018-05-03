@@ -16,6 +16,10 @@ export default styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
   },
+  h1: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   h5: {
     fontWeight: 'bold',
   },
@@ -23,4 +27,9 @@ export default styles = StyleSheet.create({
     color: '#d1d1d1',
     fontStyle: 'italic',
   },
+  item: {
+    fontStyle: 'italic',
+    color: '#453321',
+    marginBottom: 5,
+  }
 });

@@ -5,11 +5,14 @@ import ConnexionInscriptionView from './views/connexionInscriptionView';
 import ConnexionView from './views/connexionView';
 import InscriptionView from './views/inscriptionView';
 import MyListView from './views/myListView';
+import SplashScreenView from './views/splashScreen';
 
 const GetConnected = new StackNavigator({
   Home: { screen: ConnexionInscriptionView, },
   Connexion: { screen: ConnexionView, },
   Inscription: { screen: InscriptionView, },
+  List: { screen: MyListView },
+  SplashScreen: { screen: SplashScreenView },
 },{
   initialRouteName: 'Home',
 });

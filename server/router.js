@@ -8,11 +8,16 @@ const Account = require('./controller/account');
 function myProfile(req, res, next) {
   res.send("Here's the secret!");
 }
+
+function getAccount(req, res, next) {
+  res.send('OK')
+}
 router.route('/myprofile')
   .get(myProfile);
 
 router.route('/signin/:email/:password')
   .get(Authentification.signin);
+  //.get(getAccount);
 
 router.route('/inscription')
   .post(Authentification.inscription);

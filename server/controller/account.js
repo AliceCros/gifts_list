@@ -11,7 +11,7 @@ exports.updateAccount = function(res, req, next) {
     return res.status(422).json({ error: 'You are not connected to your account' });
   }
 
-  User.findOne({ email: email }, function(err, existingUser) {
+  User.findOne({ email: this.email }, function(err, existingUser) {
 
     if (err) { 
       console.log('Error');
