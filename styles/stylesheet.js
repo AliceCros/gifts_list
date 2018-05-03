@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, resizeMode } from 'react-native';
 
 export default styles = StyleSheet.create({
   container: {
@@ -6,6 +6,7 @@ export default styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  
   },
   input: {
     height: 40,
@@ -23,4 +24,5 @@ export default styles = StyleSheet.create({
     color: '#d1d1d1',
     fontStyle: 'italic',
   },
+
 });

@@ -25,10 +25,13 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@remobile/react-native-splashscreen": "^1.0.8",
     "email-validator": "^2.0.3",
     "expo": "^26.0.0",
     "react": "16.3.0",
     "react-native": "~0.54.1",
-    "react-navigation": "^1.5.11"
+    "react-native-splash-screen": "^3.0.6",
+    "react-navigation": "^1.5.11",
+    "react-timer-mixin": "^0.13.3"
   }
 }
