@@ -69,7 +69,7 @@ exports.signin = function(req, res, next) {
     console.log('Connected to your account with email address:', email);
     res.status(200).json({ success: 'Connected to user account' });
     
-    return res.email;
+    return res;
 
   });
 

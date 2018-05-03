@@ -19,6 +19,19 @@ export default class ConnexionView extends React.Component {
     };
   }
 
+  componentWillMount = () => {
+    console.log('I am mounting');
+    fetch(`http://localhost:4000/api/signin/alice@orange.com/12345678`)
+      .then((res) => console.log(res.json()))
+      .then((resJson) => {
+        console.log('SUCCESS');
+      })
+      .catch(error => {
+          console.log(error.res);
+      })
+    }
+
+
   getConnected = () => {
     if(this.handlePress()) {
       this.fetchData();
