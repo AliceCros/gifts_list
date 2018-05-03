@@ -43,6 +43,7 @@ exports.inscription = function(req, res, next) {
       });   
     })
     console.log("OK");
+    return res.status(200).json({ success: 'Subscription ok' });
 }
 
 exports.signin = function(req, res, next) {
@@ -66,8 +67,9 @@ exports.signin = function(req, res, next) {
     }
 
     console.log('Connected to your account with email address:', email);
-    return res.status(200).json({ success: 'Connected to user account' });
+    res.status(200).json({ success: 'Connected to user account' });
     
+    return res.email;
 
   });
 

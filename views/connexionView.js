@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TextInput, Button, View, Alert } from 'react-native';
+import axios from 'axios';
 
 import Style from '../styles/stylesheet';
 
@@ -14,7 +15,15 @@ export default class ConnexionView extends React.Component {
       pwd_placeholder: 'Your password',
       email: '',
       password: '',
+      full_data: [],
     };
+  }
+
+  getConnected = () => {
+    if(this.handlePress()) {
+      this.fetchData();
+      console.log('Hello');
+    }
   }
 
     handlePress = () => {
@@ -44,8 +53,24 @@ export default class ConnexionView extends React.Component {
         );
         return console.log('Password field is empty');
       }
-      return console.log('OK');
+      console.log('OK');
+      return true;
 
+    }
+
+    fetchData = () => {
+      console.log('GET INTO FETCH DATA');
+      console.log(this.state.email);
+      axios.get(`https://localhost:19000/api/signin/${this.state.email}/${this.state.password}`)
+      .then(function(res){
+          this.setState({full_data:res.data});
+          console.log("...............");
+          console.log('RECUPERATION FULL DATA OK', res);
+          console.log("...............");
+      }.bind(this))
+      .catch(error => {
+          console.log(error.res)
+      });
     }
 
     render() {
@@ -69,7 +94,7 @@ export default class ConnexionView extends React.Component {
               secureTextEntry
               />
           <Button
-              onPress={() => this.handlePress()}
+              onPress={() => this.getConnected()}
               title="Let's go!"
               color="#841584"
               accessibilityLabel="Valider la connexion"

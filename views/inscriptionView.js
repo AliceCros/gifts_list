@@ -20,12 +20,14 @@ export default class InscriptionView extends React.Component {
       email: '',
       password: '',
       passwordconfirmation: '',
+      full_data: []
     };
   }
 
   getConnected = () => {
-    this.handlePress();
-    this.fetchData();
+    if(this.handlePress()){
+      this.fetchData();
+    }
   }
 
     /**
@@ -102,24 +104,29 @@ export default class InscriptionView extends React.Component {
           );
           return console.log('This email address is not valid');
         }
-      } else {
-
-        return console.log('Valid email address');
+        console.log('Valid email address');
+        return true;
       }
+
+        
+      
     }
 
     fetchData = () => {
-      axios.post('api/inscription')
+      console.log('GET INTO FETCH DATA');
+       axios.post('https://api/inscription')
+      //console.log('INTO AXIOS REQUEST')
       .then(res => {
-        console.log(res);
+        //console.log(res);
+        console.log(this.setState({full_data: res.data}));
         console.log(res.data);
         console.log('POST OK');
       })
       .catch(error => {
-          console.log(error.res)
+        console.log(error.res)
       });
     }
-
+    
     render() {
 
       return (
